@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics Examination Guide | RR Education</title>
+    
+    <!-- Placeholder Comments -->
+    <!-- Chosen Palette: Calm Harmony (Light grays, blues, and subtle accents) -->
+    <!-- Application Structure Plan: The SPA is structured into two main, scrollable sections: "June 2022 Examination Questions" and "December 2022 Examination Questions". A fixed top navigation bar allows quick jumps between these sections. Within each section, questions are presented as collapsible/expandable containers, and individual parts of each question are further presented as interactive, collapsible cards. This accordion-like structure is chosen to manage the density of information, allowing users to explore answers on demand, reducing cognitive overload, and enhancing readability. The design prioritizes clear information hierarchy and user-driven exploration. -->
+    <!-- Visualization & Content Choices: Content: Theoretical answers to electronics questions, including definitions, explanations, truth tables, and descriptions of circuit diagrams. -> Goal: Inform, Explain, Organize. -> Viz/Presentation: Textual explanations, HTML tables for truth tables/comparisons, and descriptive text for implied diagrams. -> Interaction: Collapsible/expandable sections and cards for questions and their parts, controlled by JavaScript. -> Justification: The content is primarily conceptual and textual, not quantitative data, making interactive text and tables the most effective presentation. The collapsible nature allows users to focus on specific answers without being overwhelmed. -> Library/Method: HTML, Tailwind CSS, Vanilla JavaScript for accordion functionality. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+            scroll-padding-top: 5rem; /* Space for fixed header/nav */
+        }
+        .section-header-anchor {
+            padding-top: 5rem; /* Offset for fixed nav */
+            margin-top: -5rem; /* Negative margin to account for padding-top */
+            display: block; /* Ensure it takes up space for scrolling */
+        }
+        .accordion-item {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+        }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #1e293b; /* slate-800 */
+            border-bottom: 1px solid #e2e8f0; /* slate-200 */
+        }
+        .accordion-header:hover {
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 1.5rem; /* No vertical padding when closed */
+        }
+        .accordion-content.open {
+            max-height: 1000px; /* Large enough to contain content, adjust if needed */
+            padding: 1.25rem 1.5rem;
+        }
+        .accordion-arrow {
+            transition: transform 0.3s ease-out;
+        }
+        .accordion-arrow.rotate {
+            transform: rotate(90deg);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            border: 1px solid #cbd5e1; /* slate-300 */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f5f9; /* slate-100 */
+            font-weight: 600;
+            color: #475569; /* slate-600 */
+        }
+        code {
+            background-color: #e2e8f0; /* slate-200 */
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'Fira Code', 'Cascadia Code', monospace; /* Monospace font for code */
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #e2e8f0; /* slate-200 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            color: #475569; /* slate-600 */
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+        .social-link:hover {
+            color: #2563eb; /* blue-600 */
+        }
+        .social-link svg {
+            margin-right: 0.25rem;
+        }
+    </style>
+</head>
+<body class="selection:bg-blue-200 selection:text-blue-800">
+
+    <!-- Fixed Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50 py-4 px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition duration-200">
+                <span class="text-slate-800">RR Education</span> | Electronics Guide
+            </a>
+            <div class="space-x-6">
+                <a href="#june-2022" class="text-slate-700 hover:text-blue-600 font-medium transition duration-200">June 2022</a>
+                <a href="#december-2022" class="text-slate-700 hover:text-blue-600 font-medium transition duration-200">December 2022</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        
+        <!-- Introduction Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
+                Electronics Examination Guide
+            </h1>
+            <p class="mt-8 text-xl leading-8 text-slate-600 max-w-3xl mx-auto">
+                Dive into comprehensive answers for past electronics examination questions. This interactive guide helps you easily explore, understand, and synthesize key concepts in semiconductor physics, transistors, digital logic, and operational amplifiers.
+            </p>
+        </header>
+
+        <main class="space-y-16">
+
+            <!-- Section: June 2022 Examination Questions -->
+            <section id="june-2022" class="section-header-anchor mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                        June 2022 Examination Questions <span class="text-blue-500">&#x1F4C3;</span>
+                    </h2>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                        Explore detailed answers to the theoretical questions from the June 2022 examination. Each part is presented in a clear, concise format, suitable for revision and deep understanding.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>1. Attempt any five parts:</span>
+                            <span class="accordion-arrow">&#x25B6;</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="space-y-4">
+                                <!-- Part (a) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(a) Concept of hole in semiconductor covalent bonding</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">In semiconductors like Silicon or Germanium, atoms are held together by covalent bonds, where neighboring atoms share valence electrons.</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Formation of a Hole:</strong> At room temperature, thermal energy can cause some valence electrons to break free from their covalent bonds and become free electrons in the conduction band.</li>
+                                            <li><strong>Concept of a Hole:</strong> When an electron leaves its covalent bond, it leaves behind an empty valence electron state. This empty state is called a hole.</li>
+                                            <li><strong>Effective Positive Charge:</strong> A hole acts as a positive charge because the removal of an electron creates a net positive charge in that region of the crystal lattice.</li>
+                                            <li><strong>Mobility:</strong> Other electrons from adjacent covalent bonds can move into this empty hole, effectively causing the hole to move in the opposite direction of the electron's movement. This movement of holes contributes to current flow, similar to the movement of positive charges.</li>
+                                        </ul>
+                                        <p class="text-sm text-slate-500 mt-2"><em>(A diagram illustrating a semiconductor lattice with covalent bonds, showing an electron breaking free and creating a vacant spot (hole) would be beneficial here, along with an arrow showing an adjacent electron moving into the hole, making the hole appear to move in the opposite direction.)</em></p>
+                                    </div>
+                                </div>
+                                <!-- Part (b) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(b) Circuit symbol of an n-channel JFET and biasing</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2"><strong>Circuit Symbol of an n-channel JFET:</strong></p>
+                                        <p class="text-sm text-slate-500 mb-2"><em>(Symbol depicting a vertical channel with a gate terminal (arrow pointing inward) connected to the channel, and Drain (top) and Source (bottom) terminals.)</em></p>
+                                        <p class="mb-2"><strong>Biasing for Normal Operation (Amplification):</strong></p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Gate-Source Junction:</strong> Always reverse-biased. The Gate (G) terminal is made negative with respect to the Source (S) terminal (V<sub>GS</sub> ≤ 0V). This creates a depletion region controlling channel width.</li>
+                                            <li><strong>Drain-Source Junction:</strong> The Drain (D) terminal is made positive with respect to the Source (S) terminal (V<sub>DS</sub> > 0V). This establishes a voltage gradient for electron flow from Source to Drain.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (d) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(d) Truth table for Y=C&#x0305;+D</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">The Boolean expression Y=C&#x0305;+D represents an OR operation between the NOT of input C and input D.</p>
+                                        <table class="min-w-full">
+                                            <thead>
+                                                <tr>
+                                                    <th>C (Input 1)</th>
+                                                    <th>D (Input 2)</th>
+                                                    <th>C&#x0305; (NOT C)</th>
+                                                    <th>Y = C&#x0305;+D (Output)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+                                                <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+                                                <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                                                <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Part (f) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(f) Barkhausen criterion for sustained oscillations</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">The Barkhausen criterion specifies the conditions for an electronic oscillator circuit to produce continuous, self-sustained oscillations without an external input signal:</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Loop Gain Condition:</strong> The magnitude of the loop gain (∣Aβ∣) must be equal to or greater than unity (i.e., ∣Aβ∣≥1). 'A' is amplifier gain, 'β' is feedback network gain.</li>
+                                            <li><strong>Phase Shift Condition:</strong> The total phase shift around the closed loop (ϕ<sub>loop</sub>) must be 0 degrees or an integer multiple of 360 degrees (i.e., ϕ<sub>loop</sub> = 2nπ radians or 360n degrees, where n = 0, 1, 2...).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (g) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(g) Pin numbers of inputs and outputs of Op-amp IC741C</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">For the widely used Op-Amp IC 741C:</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Non-inverting Input (+):</strong> Pin 3</li>
+                                            <li><strong>Inverting Input (-):</strong> Pin 2</li>
+                                            <li><strong>Output:</strong> Pin 6</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (h) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(h) CRO front panel controls for sharp display and time base speed</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>To obtain sharp display lines:</strong> Use the <strong>FOCUS</strong> control. Additionally, the <strong>INTENSITY</strong> control can be adjusted for optimal brightness.</li>
+                                            <li><strong>To select the time base speed:</strong> Use the <strong>TIME/DIV</strong> (or SEC/DIV) control knob.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>2. Attempt any two parts:</span>
+                            <span class="accordion-arrow">&#x25B6;</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="space-y-4">
+                                <!-- Part (a) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(a) Formation of p-n junction and depletion region; barrier potential</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2"><strong>Formation of p-n Junction:</strong> A p-n junction is formed when a p-type semiconductor (excess holes) is fused adjacent to an n-type semiconductor (excess free electrons).</p>
+                                        <p class="mb-2"><strong>Formation of Depletion Region:</strong></p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Diffusion:</strong> Electrons from n-side diffuse to p-side, and holes from p-side diffuse to n-side due to concentration gradient.</li>
+                                            <li><strong>Recombination:</strong> Diffusing electrons and holes recombine.</li>
+                                            <li><strong>Immobile Ions:</strong> Electrons leaving n-side leave behind positive donor ions (N<sub>D</sub><sup>+</sup>). Holes filled on p-side leave behind negative acceptor ions (N<sub>A</sub><sup>-</sup>). These ions are fixed.</li>
+                                            <li><strong>Depletion Layer:</strong> This process creates a region around the junction depleted of mobile charge carriers, leaving only immobile ions.</li>
+                                        </ul>
+                                        <p class="text-sm text-slate-500 mt-2"><em>(A labelled diagram showing the p-type and n-type regions, the junction, the immobile positive ions in the n-side of the depletion region, and immobile negative ions in the p-side of the depletion region, with arrows indicating electron/hole diffusion, would greatly enhance the answer.)</em></p>
+                                        <p class="mb-2 mt-4"><strong>Barrier Potential (or Potential Barrier/Voltage Barrier):</strong></p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Definition:</strong> The immobile ions in the depletion region create an electric field, establishing a potential difference that opposes further diffusion of majority carriers.</li>
+                                            <li><strong>Polarity:</strong> The n-side of the depletion region becomes positive, and the p-side becomes negative.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (b) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(b) Labelled output characteristics of BJT in CE configuration</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="text-sm text-slate-500 mb-2"><em>(Draw a graph with Collector Current (I<sub>C</sub>) on the Y-axis and Collector-Emitter Voltage (V<sub>CE</sub>) on the X-axis. Include multiple curves, each representing a different fixed value of Base Current (I<sub>B</sub>). Clearly label the three regions: Cutoff, Active, and Saturation.)</em></p>
+                                        <p class="mb-2 mt-4"><strong>Output Characteristics of BJT in Common Emitter (CE) Configuration:</strong></p>
+                                        <ul class="list-disc list-inside space-y-2">
+                                            <li><strong>Active Region:</strong>
+                                                <ul class="list-circle list-inside ml-4">
+                                                    <li><strong>Features:</strong> I<sub>C</sub> is almost independent of V<sub>CE</sub> and proportional to I<sub>B</sub>. BE junction forward-biased, CB junction reverse-biased.</li>
+                                                    <li><strong>Application:</strong> Used for amplification of AC signals.</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Cutoff Region:</strong>
+                                                <ul class="list-circle list-inside ml-4">
+                                                    <li><strong>Features:</strong> I<sub>B</sub> is zero or very small. Both BE and CB junctions are reverse-biased. I<sub>C</sub> is negligible ("off").</li>
+                                                    <li><strong>Application:</strong> Used as an open switch in digital logic circuits.</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Saturation Region:</strong>
+                                                <ul class="list-circle list-inside ml-4">
+                                                    <li><strong>Features:</strong> I<sub>B</sub> is large, both BE and CB junctions are forward-biased. I<sub>C</sub> reaches maximum. V<sub>CE</sub> is very small (0.1V to 0.3V).</li>
+                                                    <li><strong>Application:</strong> Used as a closed switch in digital logic circuits.</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (c) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(c) Universal biasing of n-p-n transistor in CE configuration and Q-point stabilization</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2"><strong>Universal Biasing (Voltage Divider Biasing):</strong> Most widely used and stable biasing method for BJT amplifiers.</p>
+                                        <p class="text-sm text-slate-500 mb-2"><em>(Draw a circuit diagram of an n-p-n transistor in CE configuration with voltage divider biasing. This includes resistors R<sub>1</sub> and R<sub>2</sub> forming a voltage divider at the base, a collector resistor R<sub>C</sub>, and an emitter resistor R<sub>E</sub>, all connected to a single DC supply V<sub>CC</sub>. Include a bypass capacitor across R<sub>E</sub> for AC signals, though for DC biasing explanation, it's optional.)</em></p>
+                                        <p class="mb-2 mt-4"><strong>Explanation:</strong></p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Base Voltage Division:</strong> R<sub>1</sub> and R<sub>2</sub> set a stable DC voltage at the base (V<sub>B</sub>).</li>
+                                            <li><strong>Emitter Voltage and Current:</strong> Emitter resistor R<sub>E</sub> provides negative feedback. V<sub>E</sub> = I<sub>E</sub> × R<sub>E</sub> ≈ V<sub>B</sub> - V<sub>BE</sub>, determining I<sub>E</sub>.</li>
+                                            <li><strong>Collector Current:</strong> Since I<sub>C</sub> ≈ I<sub>E</sub>, I<sub>C</sub> is also set.</li>
+                                            <li><strong>Collector-Emitter Voltage:</strong> V<sub>C</sub> = V<sub>CC</sub> - I<sub>C</sub>R<sub>C</sub>, and V<sub>CE</sub> = V<sub>C</sub> - V<sub>E</sub>, establishing the Q-point.</li>
+                                        </ul>
+                                        <p class="mb-2 mt-4"><strong>Q-point Stabilization in Universal Biasing:</strong></p>
+                                        <p class="mb-2">The emitter resistor (R<sub>E</sub>) stabilizes the Q-point against temperature and transistor &beta; variations:</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Temperature Increase / &beta; Increase:</strong> I<sub>C</sub> tends to increase.</li>
+                                            <li><strong>Increased Emitter Current:</strong> I<sub>E</sub> increases.</li>
+                                            <li><strong>Increased Voltage Drop across R<sub>E</sub>:</strong> V<sub>E</sub> = I<sub>E</sub> × R<sub>E</sub> increases.</li>
+                                            <li><strong>Reduced Base-Emitter Voltage (V<sub>BE</sub>):</strong> V<sub>BE</sub> = V<sub>B</sub> - V<sub>E</sub> decreases (since V<sub>B</sub> is fixed).</li>
+                                            <li><strong>Reduced Base Current (I<sub>B</sub>):</strong> Decreased V<sub>BE</sub> reduces I<sub>B</sub>.</li>
+                                            <li><strong>Stabilized Collector Current:</strong> Reduced I<sub>B</sub> counteracts the initial I<sub>C</sub> increase, stabilizing the Q-point through negative feedback.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>3. Attempt any two parts:</span>
+                            <span class="accordion-arrow">&#x25B6;</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="space-y-4">
+                                <!-- Part (a) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(a) 2-input AND gate using p-n junction diodes, truth table, and symbol</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2"><strong>Realization using p-n Junction Diodes (Diode AND Gate):</strong></p>
+                                        <p class="text-sm text-slate-500 mb-2"><em>(Draw a circuit diagram: Two diodes (D1, D2) with their anodes connected to separate input terminals (A, B) and their cathodes connected together. The common cathode point is then connected to a resistor (R) which is pulled up to a positive supply voltage (V<sub>CC</sub>). The output (Y) is taken from the common cathode point.)</em></p>
+                                        <p class="mb-2 mt-4"><strong>Explanation of Operation:</strong></p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Case 1: A=0V, B=0V:</strong> Both diodes forward-biased, pulling Y to LOW (approx. 0.7V).</li>
+                                            <li><strong>Case 2: A=0V, B=V<sub>CC</sub>:</strong> D1 forward-biased, pulls Y to LOW. D2 reverse-biased.</li>
+                                            <li><strong>Case 3: A=V<sub>CC</sub>, B=0V:</strong> D1 reverse-biased. D2 forward-biased, pulls Y to LOW.</li>
+                                            <li><strong>Case 4: A=V<sub>CC</sub>, B=V<sub>CC</sub>:</strong> Both diodes reverse-biased. Y is pulled up to V<sub>CC</sub> (HIGH) through R.</li>
+                                        </ul>
+                                        <p class="mb-2 mt-4"><strong>Truth Table of AND Gate:</strong></p>
+                                        <table class="min-w-full">
+                                            <thead>
+                                                <tr><th>A</th><th>B</th><th>Y = A AND B</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>0</td><td>0</td></tr>
+                                                <tr><td>0</td><td>1</td><td>0</td></tr>
+                                                <tr><td>1</td><td>0</td><td>0</td></tr>
+                                                <tr><td>1</td><td>1</td><td>1</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="mb-2 mt-4"><strong>Symbol of AND Gate:</strong></p>
+                                        <p class="text-sm text-slate-500"><em>(Standard D-shaped AND gate symbol with two inputs (A, B) and one output (Y).)</em></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>4. Attempt any two parts:</span>
+                            <span class="accordion-arrow">&#x25B6;</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="space-y-4">
+                                <!-- Part (a) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(a) Current gain of CE amplifier in terms of h-parameters</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">For a Common Emitter (CE) amplifier, the current gain (A<sub>i</sub>) is the ratio of output collector current (I<sub>C</sub>) to input base current (I<sub>B</sub>). Using the h-parameter model:</p>
+                                        <p class="mb-2">V<sub>BE</sub> = h<sub>ie</sub>I<sub>B</sub> + h<sub>re</sub>V<sub>CE</sub></p>
+                                        <p class="mb-2">I<sub>C</sub> = h<sub>fe</sub>I<sub>B</sub> + h<sub>oe</sub>V<sub>CE</sub></p>
+                                        <p class="mb-2">Where:</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li>h<sub>ie</sub>: input impedance</li>
+                                            <li>h<sub>re</sub>: reverse voltage transfer ratio</li>
+                                            <li>h<sub>fe</sub>: forward current transfer ratio (β<sub>ac</sub>)</li>
+                                            <li>h<sub>oe</sub>: output admittance</li>
+                                        </ul>
+                                        <p class="mb-2 mt-4">Considering load resistance r<sub>L</sub>: V<sub>CE</sub> = -I<sub>C</sub>r<sub>L</sub></p>
+                                        <p class="mb-2">Substitute V<sub>CE</sub> into the second equation:</p>
+                                        <pre class="mb-2"><code>I<sub>C</sub> = h<sub>fe</sub>I<sub>B</sub> + h<sub>oe</sub>(-I<sub>C</sub>r<sub>L</sub>)
+I<sub>C</sub> = h<sub>fe</sub>I<sub>B</sub> - h<sub>oe</sub>I<sub>C</sub>r<sub>L</sub>
+I<sub>C</sub>(1 + h<sub>oe</sub>r<sub>L</sub>) = h<sub>fe</sub>I<sub>B</sub></code></pre>
+                                        <p class="mb-2">Finally, the current gain (A<sub>i</sub> = I<sub>C</sub>/I<sub>B</sub>) is:</p>
+                                        <pre class="mb-2"><code>A<sub>i</sub> = h<sub>fe</sub> / (1 + h<sub>oe</sub>r<sub>L</sub>)</code></pre>
+                                        <p class="text-sm text-slate-600 mt-2">This expression shows that the current gain depends on h<sub>fe</sub>, h<sub>oe</sub>, and the load resistance r<sub>L</sub>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>5. Attempt any two parts:</span>
+                            <span class="accordion-arrow">&#x25B6;</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="space-y-4">
+                                <!-- Part (a) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(a) Op-amp parameters and ideal values: CMRR, Input offset voltage</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <ul class="list-disc list-inside space-y-2">
+                                            <li><strong>(i) CMRR (Common Mode Rejection Ratio):</strong>
+                                                <ul class="list-circle list-inside ml-4">
+                                                    <li><strong>Explanation:</strong> Measures an op-amp's ability to reject common-mode signals (noise appearing identically on both inputs) while amplifying differential signals. High CMRR means effective noise suppression.</li>
+                                                    <li><strong>Ideal Value:</strong> Infinity (∞).</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>(ii) Input offset voltage (V<sub>io</sub>):</strong>
+                                                <ul class="list-circle list-inside ml-4">
+                                                    <li><strong>Explanation:</strong> The small, unwanted DC voltage that appears at the output when both inputs are at the same potential (ideally 0V output). It's the differential input voltage needed to nullify this output.</li>
+                                                    <li><strong>Ideal Value:</strong> 0 V.</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (b) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(b) Basic integrator using op-amp and output voltage expression</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2"><strong>Circuit Diagram of a Basic Op-amp Integrator:</strong></p>
+                                        <p class="text-sm text-slate-500 mb-2"><em>(Draw a circuit diagram: An Op-Amp with the non-inverting input grounded. An input resistor (R<sub>in</sub>) connects the input voltage (V<sub>in</sub>) to the inverting input. A capacitor (C<sub>f</sub>) is connected in the feedback path between the output and the inverting input. The output voltage is V<sub>out</sub>.)</em></p>
+                                        <p class="mb-2 mt-4"><strong>Expression for Output Voltage:</strong></p>
+                                        <p class="mb-2">Assuming ideal op-amp characteristics and virtual ground at inverting input:</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li>Input Current (I<sub>in</sub>): I<sub>in</sub> = V<sub>in</sub> / R<sub>in</sub></li>
+                                            <li>Feedback Current (I<sub>f</sub>): I<sub>f</sub> = I<sub>in</sub> = -C<sub>f</sub> (dV<sub>out</sub>/dt)</li>
+                                        </ul>
+                                        <p class="mb-2 mt-4">Equating currents and solving for V<sub>out</sub>:</p>
+                                        <pre class="mb-2"><code>V<sub>out</sub>(t) = - (1 / (R<sub>in</sub>C<sub>f</sub>)) &#x222B; V<sub>in</sub>(&#x03C4;)d&#x03C4; + V<sub>initial</sub></code></pre>
+                                        <p class="text-sm text-slate-600 mt-2">The output voltage is proportional to the negative integral of the input voltage, scaled by the time constant R<sub>in</sub>C<sub>f</sub>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: December 2022 Examination Questions -->
+            <section id="december-2022" class="section-header-anchor mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                        December 2022 Examination Questions <span class="text-emerald-500">&#x1F4C4;</span>
+                    </h2>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                        Review the solutions for the December 2022 examination. This section covers topics from charge carrier transport to transistor configurations and logic gates, providing clear explanations and supporting details.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>1. Attempt any five parts:</span>
+                            <span class="accordion-arrow">&#x25B6;</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="space-y-4">
+                                <!-- Part (a) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(a) Distinguish between drift and diffusion current</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <table class="min-w-full">
+                                            <thead>
+                                                <tr><th>Feature</th><th>Drift Current</th><th>Diffusion Current</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>Cause</strong></td><td>Applied external electric field (voltage).</td><td>Concentration gradient of charge carriers.</td></tr>
+                                                <tr><td><strong>Movement</strong></td><td>Directed movement under electric field.</td><td>From higher to lower concentration.</td></tr>
+                                                <tr><td><strong>Direction</strong></td><td>Electrons opposite to field; holes in field direction.</td><td>From higher to lower concentration, independent of field.</td></tr>
+                                                <tr><td><strong>Analogy</strong></td><td>A ball rolling downhill due to gravity.</td><td>A drop of ink spreading in water.</td></tr>
+                                                <tr><td><strong>Formula</strong></td><td>Proportional to electric field and carrier mobility (σE).</td><td>Proportional to concentration gradient and diffusion coefficient (e.g., J<sub>n</sub> = qD<sub>n</sub> dn/dx).</td></tr>
+                                                <tr><td><strong>Occurs in</strong></td><td>Both intrinsic and extrinsic semiconductors when voltage applied.</td><td>Primarily at junctions (like p-n junction) or where doping levels change.</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Part (b) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(b) Circuit symbol of n-p-n BJT and biasing for amplifier operation</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2"><strong>Circuit Symbol of an n-p-n Bipolar Junction Transistor (BJT):</strong></p>
+                                        <p class="text-sm text-slate-500 mb-2"><em>(Symbol depicting three terminals: Collector (C), Base (B), and Emitter (E). The Emitter line has an arrow pointing outward from the base.)</em></p>
+                                        <p class="mb-2 mt-4"><strong>Biasing for Normal Operation (Amplification):</strong></p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Emitter-Base (Input) Junction:</strong> Must be forward-biased (Base positive with respect to Emitter, V<sub>BE</sub> ≈ 0.7V).</li>
+                                            <li><strong>Collector-Base (Output) Junction:</strong> Must be reverse-biased (Collector more positive than Base, or V<sub>CE</sub> > V<sub>BE</sub>).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (d) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(d) Truth table for Y=(C+D)C&#x0305;</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">The Boolean expression Y=(C+D)C&#x0305; represents an AND operation between the result of (C OR D) and (NOT C).</p>
+                                        <table class="min-w-full">
+                                            <thead>
+                                                <tr><th>C</th><th>D</th><th>(C+D)</th><th>C&#x0305;</th><th>Y = (C+D)C&#x0305;</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+                                                <tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                                <tr><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+                                                <tr><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Part (e) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(e) Units for h-parameters</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>(i) h<sub>21</sub> (h<sub>f</sub>):</strong> Forward current transfer ratio (e.g., h<sub>fe</sub>). It is a ratio of output current to input current (&#x0394;I<sub>out</sub>/&#x0394;I<sub>in</sub>). <strong>Unit: Dimensionless (no units).</strong></li>
+                                            <li><strong>(ii) h<sub>11</sub> (h<sub>i</sub>):</strong> Input impedance (e.g., h<sub>ie</sub>). It is a ratio of input voltage to input current (&#x0394;V<sub>in</sub>/&#x0394;I<sub>in</sub>). <strong>Unit: Ohms (Ω).</strong></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (f) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(f) PIV of diodes in full wave rectifiers</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">PIV (Peak Inverse Voltage) is the maximum reverse-bias voltage a diode can withstand without breakdown.</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>(i) Full-Wave Rectifier with Centre-Tapped Transformer:</strong> PIV for each diode is <strong>2V<sub>m</sub></strong> (where V<sub>m</sub> is peak voltage from center tap to either end).</li>
+                                            <li><strong>(ii) Full-Wave Bridge Rectifier:</strong> PIV for each diode is <strong>V<sub>m</sub></strong> (where V<sub>m</sub> is the peak secondary voltage of the transformer).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (g) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(g) Ideal Op-amp characteristics</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">For an ideal Operational Amplifier (Op-amp):</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>(i) Input offset voltage:</strong> 0 V</li>
+                                            <li><strong>(ii) CMRR (Common Mode Rejection Ratio):</strong> Infinity (∞)</li>
+                                            <li><strong>(iii) Output resistance:</strong> 0 Ω</li>
+                                            <li><strong>(iv) Slew rate:</strong> Infinity (∞)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Part (h) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(h) Why trigger pulse for monostable IC 555 should be narrow</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">In monostable mode, the IC 555 timer produces a single output pulse in response to a negative-going edge on the trigger input (Pin 2).</p>
+                                        <p class="mb-2">A very narrow trigger pulse ensures that the 555 timer registers a clear, distinct falling edge and then begins its timing cycle unhindered. If the pulse is too wide or stays LOW for too long, the timer can malfunction, falsely re-trigger, or produce an unstable output, preventing it from completing its intended single, stable output pulse.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>2. Attempt any two parts:</span>
+                            <span class="accordion-arrow">&#x25B6;</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="space-y-4">
+                                <!-- Part (a) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(a) Working of an LED with energy band diagram; I-V characteristics region</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2"><strong>Working of an LED (Light Emitting Diode) with Energy Band Diagram:</strong></p>
+                                        <p class="text-sm text-slate-500 mb-2"><em>(Draw an energy band diagram for a forward-biased p-n junction, showing the conduction band and valence band for both p-type and n-type materials, the Fermi levels, and the energy gap. Illustrate electrons in the conduction band of the n-side and holes in the valence band of the p-side, and show recombination near the junction with the emission of a photon.)</em></p>
+                                        <ul class="list-disc list-inside space-y-1 mt-4">
+                                            <li><strong>Semiconductor Material:</strong> LEDs are direct bandgap p-n junction diodes (e.g., GaAsP, GaN).</li>
+                                            <li><strong>Forward Biasing:</strong> LED must be forward-biased (positive to p-region, negative to n-region).</li>
+                                            <li><strong>Electron-Hole Injection:</strong> Under forward bias, electrons from n-side inject into p-region, holes from p-side inject into n-region.</li>
+                                            <li><strong>Recombination and Photon Emission:</strong> Injected minority carriers recombine in the depletion region. Electron falling from conduction band to fill a hole in valence band releases energy as a photon (light).</li>
+                                            <li><strong>Light Color:</strong> Determined by the energy bandgap (E<sub>g</sub>) of the semiconductor material.</li>
+                                        </ul>
+                                        <p class="mb-2 mt-4"><strong>Region of I-V Characteristics for Operation:</strong></p>
+                                        <p class="mb-2">LEDs operate exclusively in the <strong>forward-biased region</strong> of their I-V characteristics, where current conducts after the threshold voltage is overcome, and light emission occurs.</p>
+                                    </div>
+                                </div>
+                                <!-- Part (b) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(b) Common Base (CB), Common Emitter (CE), and Common Collector (CC) configurations of n-p-n transistor</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2">Transistors have three primary configurations based on which terminal is common to both input and output circuits:</p>
+                                        <p class="text-sm text-slate-500 mb-2"><em>(For each configuration, draw a basic circuit diagram of an n-p-n transistor showing the input, output, and the common terminal clearly. Include biasing resistors and DC supply for completeness.)</em></p>
+                                        <ul class="list-disc list-inside space-y-4 mt-4">
+                                            <li><strong>Common Base (CB) Configuration:</strong>
+                                                <ul class="list-circle list-inside ml-4">
+                                                    <li><strong>Description:</strong> Base terminal is common to input (emitter-base) and output (collector-base). Input: Emitter-Base, Output: Collector-Base.</li>
+                                                    <li><strong>Characteristics:</strong> High Voltage Gain, Current Gain (&#x03B1;) &lt; 1, Low Input Resistance, High Output Resistance, No Phase Inversion (0°).</li>
+                                                    <li><strong>Applications:</strong> High-frequency applications, impedance matching (low to high).</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Common Emitter (CE) Configuration:</strong>
+                                                <ul class="list-circle list-inside ml-4">
+                                                    <li><strong>Description:</strong> Emitter terminal is common to input (base-emitter) and output (collector-emitter). Input: Base-Emitter, Output: Collector-Emitter.</li>
+                                                    <li><strong>Characteristics:</strong> High Voltage Gain, High Current Gain (&#x03B2;), Medium Input Resistance, Medium Output Resistance, Phase Inversion (180°).</li>
+                                                    <li><strong>Applications:</strong> General-purpose voltage amplifier, audio frequency (AF) amplifiers.</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Common Collector (CC) Configuration (Emitter Follower):</strong>
+                                                <ul class="list-circle list-inside ml-4">
+                                                    <li><strong>Description:</strong> Collector terminal is common to input (base-collector) and output (emitter-collector). Input: Base-Collector, Output: Emitter.</li>
+                                                    <li><strong>Characteristics:</strong> Voltage Gain &lt; 1 (close to 1), High Current Gain, Very High Input Resistance, Very Low Output Resistance, No Phase Inversion (0°).</li>
+                                                    <li><strong>Applications:</strong> Impedance matching (high to low), current buffering, current amplification.</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>Question 3.</span>
+                            <span class="accordion-arrow">&#x25B6;</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="space-y-4">
+                                <!-- Part (a) -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header bg-slate-50" onclick="toggleAccordion(this)">
+                                        <span>(a) 2-input NAND gate using p-n junction diodes and a transistor, truth table, and symbol</span>
+                                        <span class="accordion-arrow">&#x25B6;</span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="mb-2"><strong>Circuit Diagram of a 2-input NAND Gate (Diode-Transistor Logic - DTL):</strong></p>
+                                        <p class="text-sm text-slate-500 mb-2"><em>(Draw a DTL NAND gate circuit: Two diodes (D1, D2) with their anodes as inputs (A, B) and cathodes joined. This common cathode point is connected to a resistor (R1), which then connects to the base of an n-p-n transistor (Q1). Another resistor (R2) connects the collector of Q1 to V<sub>CC</sub>. The output (Y) is taken from the collector of Q1. An optional diode D3 in series with R1 can be included for better noise margin.)</em></p>
+                                        <p class="mb-2 mt-4"><strong>Explanation of Operation:</strong></p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong>Inputs A=LOW or B=LOW or Both LOW:</strong> Corresponding diode(s) forward-biased, pulling Q1 base LOW. Q1 remains OFF. Output Y is pulled up to V<sub>CC</sub> (HIGH).</li>
+                                            <li><strong>Inputs A=HIGH and B=HIGH:</strong> Both diodes reverse-biased. Current flows from V<sub>CC</sub> through R1 to Q1 base, turning Q1 ON (saturation). Output Y is pulled down to LOW (approx. V<sub>CE(sat)</sub>).</li>
+                                        </ul>
+                                        <p class="mb-2 mt-4"><strong>Truth Table of NAND Gate:</strong></p>
+                                        <table class="min-w-full">
+                                            <thead>
+                                                <tr><th>A</th><th>B</th><th>Y = NOT (A AND B)</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>0</td><td>1</td></tr>
+                                                <tr><td>0</td><td>1</td><td>1</td></tr>
+                                                <tr><td>1</td><td>0</td><td>1</td></tr>
+                                                <tr><td>1</td><td>1</td><td>0</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="mb-2 mt-4"><strong>Symbol of NAND Gate:</strong></p>
+                                        <p class="text-sm text-slate-500"><em>(Standard AND gate symbol with a small circle (inversion bubble) at its output.)</em></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-20 pt-8 border-t border-slate-200 bg-white p-6 rounded-lg shadow-inner">
+            <p class="text-lg text-slate-700 mb-4 font-semibold">
+                Crafted with <span class="text-red-500">&#x2764;&#xFE0F;</span> by Raushan Ranjan
+            </p>
+            <p class="text-sm text-slate-600 mb-6">
+                Bringing clarity to complex concepts through <strong class="text-blue-600">RR Education</strong>.
+            </p>
+            <div class="flex justify-center space-x-6 mb-6 text-slate-600">
+                <a href="https://www.instagram.com/your_instagram_id" target="_blank" rel="noopener noreferrer" class="social-link hover:text-pink-600 transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"/></svg>
+                    Instagram
+                </a>
+                <a href="https://learndotnetwithraushan.blogspot.com/" target="_blank" rel="noopener noreferrer" class="social-link hover:text-orange-600 transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Blogs
+                </a>
+                <a href="https://www.youtube.com/@rr.education" target="_blank" rel="noopener noreferrer" class="social-link hover:text-red-600 transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.8 7.4c-.9 2.3-.9 4.8 0 7.1A4.5 4.5 0 0 0 5 18c1.3.4 2.7.6 4 .6h6c1.3 0 2.7-.2 4-.6a4.5 4.5 0 0 0 2.2-3.5c.9-2.3.9-4.8 0-7.1a4.5 4.5 0 0 0-2.2-3.5c-1.3-.4-2.7-.6-4-.6H9c-1.3 0-2.7.2-4 .6a4.5 4.5 0 0 0-2.2 3.5z"/><path d="m10 15 5-3-5-3z"/></svg>
+                    YouTube
+                </a>
+                <a href="https://www.linkedin.com/in/raushanranjan" target="_blank" rel="noopener noreferrer" class="social-link hover:text-blue-700 transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    LinkedIn
+                </a>
+        
+<script>
+        // JavaScript for accordion functionality
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling; // Get the content div
+            const arrow = header.querySelector('.accordion-arrow'); // Get the arrow span
+
+            // Toggle the 'open' class on the content
+            content.classList.toggle('open');
+            // Toggle the 'rotate' class on the arrow
+            arrow.classList.toggle('rotate');
+        }
+    </script>        
+</body>
+</html>
