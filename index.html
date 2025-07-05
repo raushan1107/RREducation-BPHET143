@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BPHET-143 Interactive Exam Guide</title>
 
-    <!-- Placeholder Comments -->
     <!-- Chosen Palette: Academic Blue & Slate -->
     <!-- Application Structure Plan: The SPA transforms the linear text document into an interactive dashboard. The six main topics are presented as large, clickable cards in a grid, providing an immediate overview of all study areas. Clicking a card opens a modal-like detail view for that specific topic, using an accordion for sub-topics. This progressive disclosure approach prevents overwhelming the user and allows them to focus on one area at a time. The "Key Takeaways" are in a separate, visually distinct section at the bottom for final review. This structure enhances usability by making navigation intuitive and topic exploration self-directed. -->
-    <!-- Visualization & Content Choices: Source Info: Text-based list of exam topics. -> Goal: Inform, Organize, Engage. -> Viz/Presentation: Interactive HTML/CSS cards and accordion lists. -> Interaction: Cards have hover effects and open a detailed view on click. Accordions within the detail view expand/collapse to show sub-topics. -> Justification: Since the content is purely textual, interactive cards and accordions are superior to a static list. They break down dense information into manageable chunks, improving readability and user engagement for studying. -> Library/Method: HTML, Tailwind CSS, Vanilla JS. -> CONFIRMATION: NO SVG/Mermaid. -->
+    <!-- Visualization & Content Choices: Source Info: Text-based list of exam topics. -> Goal: Inform, Organize, Engage. -> Viz/Presentation: Interactive HTML/CSS cards and accordion lists. -> Interaction: Cards have hover effects and open a detailed view on click. Accordions within the detail view expand/collapse to show sub-topics. -> Justification: Since the content is purely textual, interactive cards and accordions are superior to a static list. They break down dense information into manageable chunks, improving readability and user engagement for studying. -> Library/Method: HTML, Tailwind CSS, Vanilla JS. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -62,20 +61,42 @@
         .detail-modal.visible .detail-modal-content {
             transform: scale(1);
         }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: #1e293b; /* slate-800 */
+            border-bottom: 1px solid #e2e8f0; /* slate-200 */
+        }
+        .accordion-header:hover {
+            background-color: #f1f5f9; /* slate-100 */
+        }
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 0;
         }
         .accordion-content.open {
-            max-height: 500px; /* Adjust as needed */
+            max-height: 1000px; /* Large enough to contain content, adjust if needed */
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        .accordion-arrow {
+            transition: transform 0.3s ease-out;
+        }
+        .accordion-arrow.rotate {
+            transform: rotate(90deg);
         }
     </style>
 </head>
 <body class="text-slate-800">
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        
-        <!-- Introduction Header -->
+
+    <div class="container mx-auto px-4 py-12">
+<!-- Introduction Header -->
         <header class="text-center mb-16">
             <h1 class="text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
                 <a href="ques-ans.html" target="_blank" rel="noopener noreferrer" class="social-link hover:text-blue-600 transition duration-200">Electronics Examination Guide</a>
@@ -85,92 +106,109 @@
                 Dive into comprehensive answers for past electronics examination questions. This interactive guide helps you easily explore, understand, and synthesize key concepts in semiconductor physics, transistors, digital logic, and operational amplifiers.
             </p>
         </header>
-    <div class="container mx-auto px-4 py-12">
         <!-- Header -->
         <header class="text-center mb-12">
             <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">BPHET-143 Interactive Study Guide</h1>
             <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">
-                An interactive dashboard of the most important topics for the Digital and Analog Circuits and Instrumentation exam, based on an analysis of past papers.
+                An updated interactive dashboard of the most important topics for the Digital and Analog Circuits and Instrumentation exam, based on an analysis of June 2022, December 2022, June 2023, and June 2024 papers.
             </p>
         </header>
 
         <!-- Main Topics Grid -->
         <main>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1: Semiconductor Basics -->
+                <!-- Card 1: Semiconductor Basics & Diodes -->
                 <div class="topic-card p-6 flex flex-col items-center text-center" onclick="showDetail('detail-semiconductors')">
                     <div class="text-4xl mb-3 text-blue-500">&#x2B22;</div>
                     <h2 class="text-xl font-bold text-slate-900 mb-2">Semiconductor Basics & Diodes</h2>
-                    <p class="text-slate-600">Explore P-N junctions, charge carriers, LEDs, and rectifier principles.</p>
+                    <p class="text-slate-600">Holes, Drift/Diffusion, P-N Junction, LEDs, Zener, Rectifiers, Solar Cells.</p>
                 </div>
 
                 <!-- Card 2: Transistors -->
                 <div class="topic-card p-6 flex flex-col items-center text-center" onclick="showDetail('detail-transistors')">
                     <div class="text-4xl mb-3 text-blue-500">&#x1F53F;</div>
                     <h2 class="text-xl font-bold text-slate-900 mb-2">Transistors (BJT & JFET)</h2>
-                    <p class="text-slate-600">Master configurations, biasing, characteristics, and h-parameters.</p>
+                    <p class="text-slate-600">Configurations, Biasing, Characteristics, Amplifiers, Negative Feedback.</p>
                 </div>
 
-                <!-- Card 3: Digital Electronics -->
+                <!-- Card 3: Digital Electronics & Logic Gates -->
                 <div class="topic-card p-6 flex flex-col items-center text-center" onclick="showDetail('detail-digital')">
                     <div class="text-4xl mb-3 text-blue-500">&#x1F4BE;</div>
                     <h2 class="text-xl font-bold text-slate-900 mb-2">Digital Electronics & Logic Gates</h2>
-                    <p class="text-slate-600">Practice truth tables, Boolean expressions, and logic gate realization.</p>
+                    <p class="text-slate-600">Truth Tables, Gate Realization, Boolean Algebra, Binary Adders/Subtractors.</p>
                 </div>
 
-                <!-- Card 4: Op-Amps -->
+                <!-- Card 4: Operational Amplifiers (Op-Amps) -->
                 <div class="topic-card p-6 flex flex-col items-center text-center" onclick="showDetail('detail-opamps')">
                     <div class="text-4xl mb-3 text-blue-500">&#x22BF;</div>
                     <h2 class="text-xl font-bold text-slate-900 mb-2">Operational Amplifiers (Op-Amps)</h2>
-                    <p class="text-slate-600">Learn ideal characteristics, parameters, and key circuits like integrators.</p>
+                    <p class="text-slate-600">Ideal Characteristics, Integrators, Differentiators, Inverting Amps, IC 741C.</p>
                 </div>
 
-                <!-- Card 5: Oscillators -->
-                <div class="topic-card p-6 flex flex-col items-center text-center" onclick="showDetail('detail-oscillators')">
+                <!-- Card 5: Oscillators & IC 555 Timer -->
+                <div class="topic-card p-6 flex flex-col items-center text-center" onclick="showDetail('detail-oscillators-timer')">
                     <div class="text-4xl mb-3 text-blue-500">&#x224B;</div>
-                    <h2 class="text-xl font-bold text-slate-900 mb-2">Oscillators</h2>
-                    <p class="text-slate-600">Understand the Barkhausen criterion and specific oscillator circuits.</p>
+                    <h2 class="text-xl font-bold text-slate-900 mb-2">Oscillators & IC 555 Timer</h2>
+                    <p class="text-slate-600">Barkhausen Criterion, Phase-Shift, Colpitts, Hartley, Monostable Multivibrator.</p>
                 </div>
 
-                <!-- Card 6: CRO -->
-                <div class="topic-card p-6 flex flex-col items-center text-center" onclick="showDetail('detail-cro')">
+                <!-- Card 6: CRO & Voltage Regulators -->
+                <div class="topic-card p-6 flex flex-col items-center text-center" onclick="showDetail('detail-cro-regulators')">
                     <div class="text-4xl mb-3 text-blue-500">&#x1F4BB;</div>
-                    <h2 class="text-xl font-bold text-slate-900 mb-2">Cathode Ray Oscilloscope (CRO)</h2>
-                    <p class="text-slate-600">Review front panel controls and phase difference measurement techniques.</p>
+                    <h2 class="text-xl font-bold text-slate-900 mb-2">CRO & Voltage Regulators</h2>
+                    <p class="text-slate-600">Front Panel Controls, Horizontal Deflection, Trace, Zener, Series Pass, Filters.</p>
                 </div>
             </div>
         </main>
         
-        <!-- Key Takeaways Section -->
+        <!-- Summary for Exam Focus Section -->
         <section class="mt-16 bg-white p-8 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold text-slate-900 mb-4 text-center">Key Takeaways for Exam Preparation</h2>
+            <h2 class="text-2xl font-bold text-slate-900 mb-4 text-center">Summary for Exam Focus</h2>
             <p class="text-center text-slate-600 mb-6">These are the most critical strategies to focus on while preparing. Mastering these points will give you a significant advantage.</p>
             <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-slate-700">
-                <li class="bg-blue-50 p-4 rounded-md"><strong>Prioritize Theoretical Understanding:</strong> A large portion of the papers is theory-based. Focus on clear definitions, explanations, and drawing correct, well-labelled diagrams for components, circuits, and energy bands.</li>
-                <li class="bg-blue-50 p-4 rounded-md"><strong>Master Logic Gates:</strong> Be prepared for both theoretical explanation (diode-transistor logic) and practical application (truth tables).</li>
-                <li class="bg-blue-50 p-4 rounded-md"><strong>Practice CRO Calculations:</strong> The phase difference calculation on CRO is a recurring numerical type.</li>
-                <li class="bg-blue-50 p-4 rounded-md"><strong>Review Transistor Formulas/Biasing:</strong> Understand how h-parameters relate to amplifier gain, and thoroughly grasp the Q-point stabilization in universal biasing.</li>
-                <li class="bg-blue-50 p-4 rounded-md"><strong>Be Ready for Basic Conversions:</strong> Numerical conversions between number systems are straightforward but essential.</li>
+                <li class="bg-blue-50 p-4 rounded-md"><strong>Theory Mastery:</strong> Focus on deeply understanding concepts, definitions, and working principles.</li>
+                <li class="bg-blue-50 p-4 rounded-md"><strong>Diagram Practice:</strong> Draw all relevant circuit diagrams, characteristic curves, and energy band diagrams neatly and labelled.</li>
+                <li class="bg-blue-50 p-4 rounded-md"><strong>Numerical Problem Solving:</strong> Practice specific types of numerical problems. Pay attention to formulas, units, and systematic problem-solving approaches.</li>
+                <li class="bg-blue-50 p-4 rounded-md"><strong>Truth Tables and Boolean Algebra:</strong> Ensure you can construct truth tables accurately and simplify Boolean expressions effectively.</li>
             </ul>
         </section>
     </div>
 
     <!-- Detail Modals (Hidden by default) -->
-    <!-- Semiconductors Detail -->
+    <!-- Semiconductor Basics & Diodes Detail -->
     <div id="detail-semiconductors" class="detail-modal" onclick="closeDetail(event, 'detail-semiconductors')">
         <div class="detail-modal-content">
-            <h2 class="text-2xl font-bold mb-4">1. Semiconductor Basics & Diodes</h2>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Primarily Theoretical Topics:</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Holes in Semiconductors:</strong> Understanding their concept and formation.</li>
-                <li><strong>Drift and Diffusion:</strong> Clear distinction between these charge transport mechanisms.</li>
-                <li><strong>P-N Junction:</strong> Formation, depletion region, and barrier potential (labelled diagram, explanation of polarity).</li>
-                <li><strong>LEDs (Light Emitting Diodes):</strong> Working principle with energy band diagram.</li>
-            </ul>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Numerical Problems (Important):</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Rectifiers (Full-Wave):</strong> PIV (Peak Inverse Voltage) for center-tapped and bridge configurations. Could involve calculations if peak voltage ($V_m$) is given.</li>
-            </ul>
+            <h2 class="text-2xl font-bold mb-4">I. Primarily Theoretical Topics (with diagrams/explanations being essential)</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Semiconductor Basics & Diodes</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li>Holes in Semiconductors: Concept and formation.</li>
+                        <li>Drift and Diffusion: Distinction between these charge transport mechanisms.</li>
+                        <li>P-N Junction: Formation, depletion region, and barrier potential (labelled diagram, polarity).</li>
+                        <li>LEDs (Light Emitting Diodes): Working principle with energy band diagrams.</li>
+                        <li>Zener Diode: Construction, working, and labelled I-V characteristics.</li>
+                        <li>Rectifier Action: Explanation based on I-V characteristics curve.</li>
+                        <li>Solar Cell: Photovoltaic effect and working principle with diagrams.</li>
+                        <li>Diode Breakdowns: Difference between Avalanche and Zener breakdown.</li>
+                    </ul>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mt-6 mb-4">II. Topics from which Numerical Problems are Important</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Rectifiers</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>PIV (Peak Inverse Voltage):</strong> Understanding the values for centre-tapped and bridge rectifiers. While asked as a theoretical question in Dec 2022, it could involve calculations if peak voltage ($V_m$) is given.</li>
+                    </ul>
+                </div>
+            </div>
             <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Close</button>
         </div>
     </div>
@@ -178,29 +216,42 @@
     <!-- Transistors Detail -->
     <div id="detail-transistors" class="detail-modal" onclick="closeDetail(event, 'detail-transistors')">
         <div class="detail-modal-content">
-            <h2 class="text-2xl font-bold mb-4">2. Transistors (BJT & JFET)</h2>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Primarily Theoretical Topics:</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li>
-                    <strong>BJT (Bipolar Junction Transistor):</strong>
-                    <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
-                        <li><strong>Configurations:</strong> Detailed understanding of Common Emitter (CE), Common Base (CB), and Common Collector (CC) configurations, including their circuit symbols, biasing conditions for amplification (active region), characteristics (gain, input/output resistance, phase shift), and applications.</li>
-                        <li><strong>Biasing:</strong> Universal (Voltage Divider) Biasing for n-p-n transistors in CE configuration, including its circuit diagram and stabilization of the Q-point.</li>
-                        <li><strong>Output Characteristics:</strong> Ability to draw and explain the CE output characteristics (Cutoff, Active, Saturation regions).</li>
+            <h2 class="text-2xl font-bold mb-4">I. Primarily Theoretical Topics (with diagrams/explanations being essential)</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Transistors (BJT & JFET)</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>BJT Configurations (CE, CB, CC):</strong> Explanation of each, circuit symbols, biasing conditions for amplification (active region), and general characteristics (gain, resistance, phase shift).</li>
+                        <li><strong>BJT Biasing:</strong>
+                            <ul class="list-circle list-inside ml-4 mt-1 space-y-1">
+                                <li>Universal (Voltage Divider) Biasing: Explanation, appropriate diagram, and Q-point stabilization.</li>
+                                <li>Transistor Biasing Concept: What it means and why universal biasing is preferred.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Output Characteristics of BJT (CE):</strong> Ability to draw labelled characteristics and explain features of each region (Cutoff, Active, Saturation).</li>
+                        <li><strong>JFET:</strong> Circuit symbol, biasing for normal operation, and drain characteristics for $V_{GS}=0$.</li>
+                        <li><strong>Amplifier Classification:</strong> Based on biasing (Class A, B, AB, C), using diagrams of output characteristics with operating point.</li>
+                        <li><strong>Negative Feedback:</strong> Why it is preferred over positive feedback in amplifier circuits.</li>
                     </ul>
-                </li>
-                 <li>
-                    <strong>JFET (Junction Field-Effect Transistor):</strong>
-                    <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
-                        <li><strong>Circuit Symbol:</strong> Know the symbol for n-channel JFET.</li>
-                        <li><strong>Biasing:</strong> How it's biased for normal operation.</li>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mt-6 mb-4">II. Topics from which Numerical Problems are Important</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Transistor Biasing & h-parameters</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Universal Bias Circuit Analysis:</strong> Calculating base voltage, collector voltage, $V_{CE}$, collector, and emitter currents, and locating Q-point, given resistor values and supply voltage.</li>
+                        <li><strong>h-parameters:</strong> Finding specific h-parameters from a given 2-port network.</li>
+                        <li><strong>Multistage Amplifier Gain:</strong> Calculating total gain from individual stage gains.</li>
                     </ul>
-                </li>
-            </ul>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Numerical Problems (Important):</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>h-parameters:</strong> Understanding current gain expression for CE amplifier in terms of h-parameters. While the derivation is theoretical, numerical values for h-parameters and load could be given for calculation.</li>
-            </ul>
+                </div>
+            </div>
             <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Close</button>
         </div>
     </div>
@@ -208,17 +259,37 @@
     <!-- Digital Electronics Detail -->
     <div id="detail-digital" class="detail-modal" onclick="closeDetail(event, 'detail-digital')">
         <div class="detail-modal-content">
-            <h2 class="text-2xl font-bold mb-4">3. Digital Electronics & Logic Gates</h2>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Primarily Theoretical Topics:</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Truth Tables:</strong> Ability to write truth tables for Boolean expressions (e.g., $C\prime+D$, $(C+D)C\prime$). This implies strong understanding of basic logic operations (NOT, AND, OR).</li>
-                <li><strong>Logic Gate Realization:</strong> How to realize basic gates (specifically AND and NAND) using p-n junction diodes and transistors (DTL). Be ready to draw circuits, explain operation, write truth tables, and draw symbols.</li>
-                <li><strong>Logic Symbols:</strong> Drawing symbols for gates (AND, NAND).</li>
-            </ul>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Numerical Problems (Important):</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Digital Number Conversions:</strong> Conversions between number systems (e.g., Octal to Decimal, Binary to Decimal).</li>
-            </ul>
+            <h2 class="text-2xl font-bold mb-4">I. Primarily Theoretical Topics (with diagrams/explanations being essential)</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Digital Electronics & Logic Gates</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Truth Tables:</strong> Ability to write truth tables for Boolean expressions (e.g., $Y=C\prime+D$, $(C+D)C\prime$, $F=ABC+ABC\prime+A\prime BC$) and for specific gates (e.g., XOR, Full Adder).</li>
+                        <li><strong>Logic Gate Realization:</strong> How to realize basic gates (AND, OR, NAND) using p-n junction diodes and transistors (DTL circuits, explanation of operation, truth tables, and symbols).</li>
+                        <li><strong>Boolean Expression Simplification:</strong> Using Boolean algebra or Karnaugh maps (K-maps) to simplify expressions and draw simplified logic circuits.</li>
+                        <li><strong>Binary Adders/Subtractors:</strong> Operation of 4-bit binary adder and 2's complement Binary Adder-Subtractor.</li>
+                        <li><strong>Logic Symbols:</strong> Drawing symbols for gates (AND, NAND).</li>
+                    </ul>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mt-6 mb-4">II. Topics from which Numerical Problems are Important</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Number System Conversions</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li>Octal to Decimal.</li>
+                        <li>Binary to Decimal.</li>
+                        <li>Octal to Binary.</li>
+                        <li>2's Complement Subtraction.</li>
+                    </ul>
+                </div>
+            </div>
             <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Close</button>
         </div>
     </div>
@@ -226,43 +297,152 @@
     <!-- Op-Amps Detail -->
     <div id="detail-opamps" class="detail-modal" onclick="closeDetail(event, 'detail-opamps')">
         <div class="detail-modal-content">
-            <h2 class="text-2xl font-bold mb-4">4. Operational Amplifiers (Op-Amps)</h2>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Primarily Theoretical Topics:</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Ideal Characteristics:</strong> Memorize ideal values for key parameters like Input Offset Voltage, CMRR, Output Resistance, and Slew Rate.</li>
-                <li><strong>Parameter Explanation:</strong> Be able to explain concepts like CMRR and Input Offset Voltage.</li>
-                <li><strong>Integrator:</strong> Circuit diagram and derivation of output voltage expression for a basic op-amp integrator.</li>
-                <li><strong>IC 741C:</strong> Knowing the pin numbers for inputs and outputs.</li>
-            </ul>
+            <h2 class="text-2xl font-bold mb-4">I. Primarily Theoretical Topics (with diagrams/explanations being essential)</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Operational Amplifiers (Op-Amps)</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Ideal Characteristics:</strong> Values for Input Offset Voltage, CMRR, Output Resistance, and Slew Rate. Be able to explain CMRR and Input Offset Voltage.</li>
+                        <li><strong>Integrator:</strong> Circuit diagram and derivation of output voltage expression.</li>
+                        <li><strong>Differentiator:</strong> Circuit diagram and derivation of output voltage expression.</li>
+                        <li><strong>Inverting Amplifier:</strong> Circuit diagram and expression for closed-loop gain.</li>
+                        <li><strong>Output Offset Voltage:</strong> Definition.</li>
+                        <li><strong>IC 741C:</strong> Pin out diagram and pin numbers of inputs/outputs.</li>
+                    </ul>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mt-6 mb-4">II. Topics from which Numerical Problems are Important</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Op-Amp Circuits</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Gain Calculation:</strong> Calculating gain of an Op-Amp circuit given resistor values (e.g., inverting amplifier).</li>
+                        <li><strong>Amplifier Design:</strong> Designing an Op-Amp amplifier with specific gain and other parameters.</li>
+                    </ul>
+                </div>
+            </div>
             <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Close</button>
         </div>
     </div>
     
-    <!-- Oscillators Detail -->
-    <div id="detail-oscillators" class="detail-modal" onclick="closeDetail(event, 'detail-oscillators')">
+    <!-- Oscillators & IC 555 Timer Detail -->
+    <div id="detail-oscillators-timer" class="detail-modal" onclick="closeDetail(event, 'detail-oscillators-timer')">
         <div class="detail-modal-content">
-            <h2 class="text-2xl font-bold mb-4">5. Oscillators</h2>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Primarily Theoretical Topics:</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Barkhausen Criterion:</strong> Clearly state both conditions necessary for sustained oscillations.</li>
-                <li><strong>Phase-Shift Oscillator:</strong> Circuit diagram and detailed explanation of how positive feedback is achieved.</li>
-            </ul>
+            <h2 class="text-2xl font-bold mb-4">I. Primarily Theoretical Topics (with diagrams/explanations being essential)</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Oscillators</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Barkhausen Criterion:</strong> Stating the criterion.</li>
+                        <li><strong>Phase-Shift Oscillator:</strong> Circuit diagram and explanation of positive feedback.</li>
+                        <li><strong>Colpitts Oscillator:</strong> Circuit diagram, working, and frequency expression.</li>
+                        <li><strong>Hartley Oscillator:</strong> Circuit diagram.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>IC 555 Timer</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Monostable Multivibrator:</strong> Working with circuit diagram, reason for narrow trigger pulse.</li>
+                        <li><strong>Pin out diagram.</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mt-6 mb-4">II. Topics from which Numerical Problems are Important</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Oscillator Frequency Calculation</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Hartley Oscillator:</strong> Calculating frequency given inductance and capacitance values.</li>
+                        <li><strong>Wien Bridge Oscillator:</strong> Calculating frequency given RC network values.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>IC 555 Timer (Astable/Monostable)</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Timing Calculations:</strong> Calculating ON time, OFF time, total time period, duty cycle, and frequency for Astable multivibrator.</li>
+                        <li><strong>Design Problems:</strong> Designing Astable or Monostable multivibrators for specific frequency/duty cycle/pulse duration.</li>
+                    </ul>
+                </div>
+            </div>
             <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Close</button>
         </div>
     </div>
-    
-    <!-- CRO Detail -->
-    <div id="detail-cro" class="detail-modal" onclick="closeDetail(event, 'detail-cro')">
+
+    <!-- CRO & Voltage Regulators Detail -->
+    <div id="detail-cro-regulators" class="detail-modal" onclick="closeDetail(event, 'detail-cro-regulators')">
         <div class="detail-modal-content">
-            <h2 class="text-2xl font-bold mb-4">6. Cathode Ray Oscilloscope (CRO)</h2>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Primarily Theoretical Topics:</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Front Panel Controls:</strong> Understanding which controls are used for specific functions (e.g., sharp display lines, time base speed).</li>
-            </ul>
-            <h3 class="text-xl font-semibold mt-4 mb-2">Numerical Problems (Important):</h3>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Phase Difference Measurement:</strong> Calculating phase difference based on horizontal displacement on the CRO screen and the length of one complete cycle. (This was directly tested in Dec 2022).</li>
-            </ul>
+            <h2 class="text-2xl font-bold mb-4">I. Primarily Theoretical Topics (with diagrams/explanations being essential)</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>CRO (Cathode Ray Oscilloscope)</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Front Panel Controls:</strong> Identifying controls for sharp display lines and time base speed.</li>
+                        <li><strong>Horizontal Deflection System:</strong> Description and reason for sawtooth wave as time base.</li>
+                        <li><strong>Trace on CRT:</strong> How a trace is obtained with waveforms.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Voltage Regulators</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Zener Diode Shunt Regulator:</strong> Design principles.</li>
+                        <li><strong>Series Pass Voltage Regulator:</strong> Design principles.</li>
+                        <li><strong>Filters in Power Supply:</strong> Function and action of capacitance filter with waveforms.</li>
+                    </ul>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mt-6 mb-4">II. Topics from which Numerical Problems are Important</h2>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>CRO</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Phase Difference Measurement:</strong> Calculation based on horizontal displacement and period/cycle length on CRO display.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Voltage Regulators</span>
+                    <span class="accordion-arrow">&#x25B6;</span>
+                </div>
+                <div class="accordion-content">
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li><strong>Voltage Regulation (Percentage):</strong> Calculation.</li>
+                    </ul>
+                </div>
+            </div>
             <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Close</button>
         </div>
     </div>
@@ -275,7 +455,7 @@
                 Bringing clarity to complex concepts through <strong class="text-blue-600">RR Education</strong>.
             </p>
             <div class="flex justify-center space-x-6 mb-6 text-slate-600">
-                <a href="https://www.instagram.com/your_instagram_id" target="_blank" rel="noopener noreferrer" class="social-link hover:text-pink-600 transition duration-200">
+                <a href="https://www.instagram.com/raushanranjan_" target="_blank" rel="noopener noreferrer" class="social-link hover:text-pink-600 transition duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"/></svg>
                     Instagram
                 </a>
@@ -304,6 +484,14 @@
             if (event.target === modal || event.target.tagName === 'BUTTON') {
                 modal.classList.remove('visible');
             }
+        }
+
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+
+            content.classList.toggle('open');
+            arrow.classList.toggle('rotate');
         }
     </script>
 </body>
